@@ -7,13 +7,9 @@ import { loadFromStorage, saveToStorage } from '../utils/storage.js';
 const STORAGE_KEY = 'fightiq-forum-posts';
 
 export default function CommunityForum() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(() => loadFromStorage(STORAGE_KEY, []));
   const [formData, setFormData] = useState(initialForm);
   const [editingPostId, setEditingPostId] = useState(null);
-
-  useEffect(() => {
-    setPosts(loadFromStorage(STORAGE_KEY, []));
-  }, []);
 
   useEffect(() => {
     saveToStorage(STORAGE_KEY, posts);
@@ -55,7 +51,7 @@ export default function CommunityForum() {
 
   return (
     <div className="page">
-      <PageHeader eyebrow="Community" title="Training Forum" text="Share training experiences and demonstrate full CRUD with localStorage persistence." />
+      <PageHeader eyebrow="Community" title="Training Forum" text="Share training experiences" />
       <div className="layout two-column wide-left">
         <section>
           <PostForm
